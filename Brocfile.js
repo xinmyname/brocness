@@ -3,6 +3,7 @@ var merge = require('broccoli-merge-trees');
 var tsc = require('broccoli-typescript-compiler').typescript;
 var watchify = require('broccoli-watchify');
 var sass = require('broccoli-sass');
+var Reload = require('broccoli-livereload');
 
 var js = tsc('app', {
     tsconfig: {
@@ -33,4 +34,11 @@ var html = funnel('app', {
 
 var styles = sass(['app/resources'], 'app.scss', 'app.css');
 
-module.exports = merge([app, html, styles]);
+var merged = merge([app, html, styles]);
+
+var tree = new Reload(merged, {
+    target: 'index.html'
+});
+
+module.exports = tree;
+

@@ -2,9 +2,13 @@
   "devDependencies": {
     "broccoli": "1.1.2",
     "broccoli-funnel": "^1.2.0",
+    "broccoli-livereload": "^1.2.1",
     "broccoli-merge-trees": "^2.0.0",
     "broccoli-sass": "^0.7.0",
     "broccoli-typescript-compiler": "^2.0.0",
     "broccoli-watchify": "^1.0.1"
+  }, 
+  "scripts": {
+    "build": "rm -rf dist && broccoli build dist"
   }
 }
