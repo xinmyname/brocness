@@ -109,11 +109,9 @@ broccoli-plugin@^1.2.1, broccoli-plugin@^1.3.0:
     rimraf "^2.3.4"
     symlink-or-copy "^1.1.8"
 
-broccoli-slow-trees@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/broccoli-slow-trees/-/broccoli-slow-trees-3.0.1.tgz#9bf2a9e2f8eb3ed3a3f2abdde988da437ccdc9b4"
-  dependencies:
-    heimdalljs "^0.2.1"
+broccoli-slow-trees@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/broccoli-slow-trees/-/broccoli-slow-trees-2.0.0.tgz#9741afe992787add64aec7f7c8211dfcc058278d"
 
 broccoli-source@^1.1.0:
   version "1.1.0"
@@ -133,12 +131,12 @@ broccoli-typescript-compiler@^2.0.0:
     typescript "^2.3.3"
     walk-sync "^0.3.2"
 
-broccoli@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/broccoli/-/broccoli-1.1.3.tgz#98405e86b7b0e6c268fb8302a006d834d17ed292"
+broccoli@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/broccoli/-/broccoli-1.1.2.tgz#9657bcee3b1e81f3a2fdbf6050355ba9163c7c11"
   dependencies:
     broccoli-node-info "1.1.0"
-    broccoli-slow-trees "3.0.1"
+    broccoli-slow-trees "^2.0.0"
     broccoli-source "^1.1.0"
     commander "^2.5.0"
     connect "^3.3.3"
@@ -148,9 +146,9 @@ broccoli@^1.1.3:
     heimdalljs-logger "^0.1.7"
     mime "^1.2.11"
     rimraf "^2.4.3"
-    rsvp "^3.5.0"
+    rsvp "^3.0.17"
     sane "^1.4.1"
-    tmp "0.0.31"
+    tmp "0.0.28"
     underscore.string "^3.2.2"
 
 bser@^2.0.0:
@@ -193,11 +191,11 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
 connect@^3.3.3:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/connect/-/connect-3.6.2.tgz#694e8d20681bfe490282c8ab886be98f09f42fe7"
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/connect/-/connect-3.6.3.tgz#f7320d46a25b4be7b483a2236517f24b1e27e301"
   dependencies:
-    debug "2.6.7"
-    finalhandler "1.0.3"
+    debug "2.6.8"
+    finalhandler "1.0.4"
     parseurl "~1.3.1"
     utils-merge "1.0.0"
 
@@ -205,13 +203,7 @@ copy-dereference@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/copy-dereference/-/copy-dereference-1.0.0.tgz#6b131865420fd81b413ba994b44d3655311152b6"
 
-debug@2.6.7:
-  version "2.6.7"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.7.tgz#92bad1f6d05bbb6bba22cca88bcd0ec894c2861e"
-  dependencies:
-    ms "2.0.0"
-
-debug@^2.2.0:
+debug@2.6.8, debug@^2.2.0:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
   dependencies:
@@ -303,11 +295,11 @@ fill-range@^2.1.0:
     repeat-element "^1.1.2"
     repeat-string "^1.5.2"
 
-finalhandler@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.0.3.tgz#ef47e77950e999780e86022a560e3217e0d0cc89"
+finalhandler@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.0.4.tgz#18574f2e7c4b98b8ae3b230c21f201f31bdb3fb7"
   dependencies:
-    debug "2.6.7"
+    debug "2.6.8"
     encodeurl "~1.0.1"
     escape-html "~1.0.3"
     on-finished "~2.3.0"
@@ -754,7 +746,7 @@ rimraf@^2.3.4, rimraf@^2.4.3, rimraf@^2.5.4:
   dependencies:
     glob "^7.0.5"
 
-rsvp@^3.0.14, rsvp@^3.5.0:
+rsvp@^3.0.14, rsvp@^3.0.17:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-3.6.2.tgz#2e96491599a96cde1b515d5674a8f7a91452926a"
 
@@ -799,12 +791,6 @@ symlink-or-copy@^1.0.0, symlink-or-copy@^1.1.8:
 tmp@0.0.28:
   version "0.0.28"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.28.tgz#172735b7f614ea7af39664fa84cf0de4e515d120"
-  dependencies:
-    os-tmpdir "~1.0.1"
-
-tmp@0.0.31:
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.31.tgz#8f38ab9438e17315e5dbd8b3657e8bfb277ae4a7"
   dependencies:
     os-tmpdir "~1.0.1"
 
