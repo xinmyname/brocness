@@ -12,6 +12,20 @@
                 "isDefault": true
             },
             "problemMatcher": []
+        },
+        {
+            "taskName": "Run tests",
+            "type": "shell",
+            "command": "./node_modules/.bin/mocha tests/*.ts --require ./node_modules/ts-node/register.js",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
         }
     ]
 }
