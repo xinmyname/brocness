@@ -2,18 +2,31 @@ import Route from "../models/route"
 
 export default class Router {
 
-    private _routes: Route[];
+    private _mode: string = 'hash';
+    private _routes: Route[] = [];
     private _root: string = '/';
+
+    constructor(options?:any) {
+        this._mode = options && options.mode && options.mode == 'history' && !!(history.pushState)
+            ? 'history'
+            : 'hash';
+    }
 
     public getFragment(): string {
 
         let fragment = '';
 
-        fragment = Router.clearSlashes(decodeURI(location.pathname + location.search));
-        fragment = fragment.replace(/\?(.*)$/, '');
-        fragment = this._root != '/' 
-            ? fragment.replace(this._root, '') 
-            : fragment;
+        if (this._mode === 'history') {
+
+            fragment = Router.clearSlashes(decodeURI(location.pathname + location.search));
+            fragment = fragment.replace(/\?(.*)$/, '');
+            fragment = this._root != '/' 
+                ? fragment.replace(this._root, '') 
+                : fragment;
+        } else {
+            let match = window.location.href.match(/#(.*)$/);
+            fragment = match ? match[1] : '';
+        }
 
         return Router.clearSlashes(fragment);
     }
@@ -48,7 +61,7 @@ export default class Router {
         return this;
     }
 
-    public check(f: string): Router {
+    public check(f?: string): Router {
 
         let fragment = f || this.getFragment();
 
@@ -81,7 +94,11 @@ export default class Router {
 
         path = path ? path : '';
 
-        history.pushState(null, null, this._root + Router.clearSlashes(path));
+        if (this._mode === 'history') {
+            history.pushState(null, "", this._root + Router.clearSlashes(path));
+        } else {
+            window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path;
+        }
 
         return this;
     }

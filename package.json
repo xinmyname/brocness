@@ -14,5 +14,9 @@
     "broccoli-watchify": "^1.0.1",
     "mocha": "^3.5.0",
     "ts-node": "^3.3.0"
+  }, 
+  "scripts": {
+    "build": "rm -rf dist && broccoli build dist",
+    "test": "./node_modules/.bin/mocha tests/*.ts --require ./node_modules/ts-node/register.js"
   }
 }

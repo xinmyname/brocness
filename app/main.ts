@@ -1,6 +1,16 @@
-import Item from './models/item'
+import Router from './infrastructure/router'
 
-let item = new Item();
+let router = new Router();
+
+router
+    .add(/status/, () => {
+        console.log("Status!");
+    })
+    .add(/vars/, () => {
+        console.log("Variables!");
+    })
+    .check()
+    .listen();
 
 console.log("Initialized.");
-console.log(item.toString());
+
