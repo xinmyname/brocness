@@ -1,16 +1,13 @@
-import Router from './infrastructure/router'
+import Router from './infrastructure/router';
+import StatusController from './controllers/status-controller';
+import VariablesController from './controllers/variables-controller';
 
-let router = new Router();
+let router = new Router(document.getElementById("shell"));
 
 router
-    .add(/status/, () => {
-        console.log("Status!");
-    })
-    .add(/vars/, () => {
-        console.log("Variables!");
-    })
-    .check()
-    .listen();
+    .add(/status/, new StatusController())
+    .add(/vars/, new VariablesController())
+    .start();
 
 console.log("Initialized.");
 

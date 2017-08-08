@@ -1,11 +1,13 @@
+import {Controller} from "../infrastructure/controller";
+
 export default class Route {
 
-    public re: RegExp;
-    public handler: (...args: any[]) => void
+    public matchExpr: RegExp;
+    public controller: Controller;
 
-    constructor(re: RegExp, handler: (...args: any[]) => void) {
+    constructor(matchExpr: RegExp, controller: Controller) {
 
-        this.re = re;
-        this.handler = handler;
+        this.matchExpr = matchExpr;
+        this.controller = controller;
     }
 }
