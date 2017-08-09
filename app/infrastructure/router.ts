@@ -8,16 +8,45 @@ export default class Router {
     private _routes: Route[] = [];
     private _root: string = '/';
 
-    constructor(shellElement:HTMLElement, options?:any) {
+    constructor(shellElement:HTMLElement|null, options?:any) {
 
-        this._shellElement = shellElement;
+        this._shellElement = shellElement || document.documentElement;
 
         this._mode = options && options.mode && options.mode == 'history' && !!(history.pushState)
             ? 'history'
             : 'hash';
     }
 
-    public getFragment(): string {
+    public add(matchExpr: RegExp | null, controller: Controller): Router {
+
+        this._routes.push(new Route(matchExpr, controller));
+
+        return this;
+    }
+
+    public start() {
+
+        this.check();
+
+        window.onpopstate = (event) => {
+            this.check(this.getFragment());
+        };
+    }
+
+    public navigate(path: string): Router {
+
+        path = path ? path : '';
+
+        if (this._mode === 'history') {
+            history.pushState(null, "", this._root + Router.clearSlashes(path));
+        } else {
+            window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path;
+        }
+
+        return this;
+    }
+
+    private getFragment(): string {
 
         let fragment = '';
 
@@ -36,67 +65,30 @@ export default class Router {
         return Router.clearSlashes(fragment);
     }
 
-    public add(matchExpr: RegExp, controller: Controller): Router {
-
-        controller.shellElement = this._shellElement;
-
-        this._routes.push(new Route(matchExpr, controller));
-
-        return this;
-    }
-
-    public flush(): Router {
-
-        this._routes = [];
-        return this;
-    }
-
-    public start(): Router {
-
-        let self = this;
-
-        window.onpopstate = (event) => {
-            console.log("** POP! **");
-            self.check(self.getFragment());
-        };
-
-        return this;
-    }
-
-    public navigate(path: string): Router {
-
-        path = path ? path : '';
-
-        if (this._mode === 'history') {
-            history.pushState(null, "", this._root + Router.clearSlashes(path));
-        } else {
-            window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path;
-        }
-
-        return this;
-    }
-
-    private check(f?: string): Router {
+    private check(f?: string) {
 
         let fragment = f || this.getFragment();
 
         for (let i = 0; i < this._routes.length; i++) {
 
-            let match = fragment.match(this._routes[i].matchExpr);
+            let matchExpr = this._routes[i].matchExpr;
+            let match = fragment.match(matchExpr || /(?:)/);
 
-            if (match) {
-                match.shift();
+            if (match || (matchExpr === null && fragment.length == 0)) {
+    
+                if (match) {
+                    match.shift();
+                }
+    
                 let controller = this._routes[i].controller;
                 controller.params = match;
                 let range = document.createRange();
                 range.selectNodeContents(this._shellElement);
                 range.deleteContents();
-                controller.activate();
-                return this;
+
+                this._shellElement.appendChild(controller.activate());
             }           
         }
-
-        return this;
     }
 
     private static clearSlashes(path: string): string {
