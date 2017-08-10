@@ -10,6 +10,3 @@ router
     .add(/status/, new StatusController())
     .add(/vars\/(.*)/, new VariablesController())
     .start();
-
-console.log("Initialized.");
-

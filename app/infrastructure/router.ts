@@ -68,26 +68,22 @@ export default class Router {
     private check(f?: string) {
 
         let fragment = f || this.getFragment();
+        let range = document.createRange();
+        range.selectNodeContents(this._shellElement);
+        range.deleteContents();
 
-        for (let i = 0; i < this._routes.length; i++) {
-
-            let matchExpr = this._routes[i].matchExpr;
-            let match = fragment.match(matchExpr || /(?:)/);
-
-            if (match || (matchExpr === null && fragment.length == 0)) {
-    
+        for (let route of this._routes) {
+            if (!route.matchExpr) {
+                if (!fragment)
+                    this._shellElement.appendChild(route.controller.activate());
+            } else {
+                let match = fragment.match(route.matchExpr);
                 if (match) {
                     match.shift();
+                    route.controller.params = match;
+                    this._shellElement.appendChild(route.controller.activate());
                 }
-    
-                let controller = this._routes[i].controller;
-                controller.params = match;
-                let range = document.createRange();
-                range.selectNodeContents(this._shellElement);
-                range.deleteContents();
-
-                this._shellElement.appendChild(controller.activate());
-            }           
+            }
         }
     }
 
@@ -95,3 +91,5 @@ export default class Router {
         return path.toString().replace(/\/$/, '').replace(/^\//, '');
     }
 }
+
+// Based on: http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url
