@@ -34,7 +34,11 @@ var html = funnel('app', {
 
 var styles = sass(['app/resources'], 'app.scss', 'app.css');
 
-var merged = merge([app, html, styles]);
+var images = funnel('app', {
+    include: ['resources/*.png']
+});
+
+var merged = merge([app, html, styles, images]);
 
 var tree = new Reload(merged, {
     target: 'index.html'

@@ -2,60 +2,83 @@ import {BaseController} from "../infrastructure/controller";
 
 export default class HomeController extends BaseController {
     
-    private _varsElement : HTMLInputElement;
+    private _varListEl : HTMLInputElement;
 
     activate(): HTMLElement {
-        console.log("Home controller!");
 
-        let content = document.createElement("div");
+        let form = document.createElement("form");
 
-        content.appendChild(this.createPlantDropDown());
-        content.appendChild(this.createVarsTextBox());
-        content.appendChild(this.createQueryButton());
+        form.appendChild(this.createPlantDropDown());
+        form.appendChild(this.createVarsTextBox());
+        form.appendChild(this.createSubmitButton());
 
-        return content;
+        return form;
     }
 
     private createPlantDropDown(): HTMLElement {
 
-        let div = document.createElement("div");
+        let id = "plant";
 
-        div.innerHTML = "\
-            <select>\
-                <option>Durham</option>\
-                <option>Rock Creek</option>\
-                <option>Forest Grove</option>\
-                <option>Hillsboro</option>\
-            </select>";
+        let formGroup = document.createElement("div");
+        formGroup.classList.add("form-group");
 
-        return div;
+        let label = document.createElement("label") as HTMLLabelElement;
+        label.textContent = "Plant"
+        label.htmlFor = id;
+        formGroup.appendChild(label);
+
+        let select = document.createElement("select") as HTMLSelectElement;
+        select.id = id;
+        select.classList.add("form-control");
+        formGroup.appendChild(select);
+
+        select.innerHTML = "\
+            <option>Durham</option>\
+            <option>Rock Creek</option>\
+            <option>Forest Grove</option>\
+            <option>Hillsboro</option>"        
+
+        return formGroup;
     }
 
     private createVarsTextBox(): HTMLElement {
 
-        let div = document.createElement("div");
+        let id = "varList";
 
-        this._varsElement = document.createElement("input") as HTMLInputElement;
+        let formGroup = document.createElement("div");
+        formGroup.classList.add("form-group");
 
-        div.appendChild(this._varsElement);
+        let label = document.createElement("label") as HTMLLabelElement;
+        label.textContent = "Variable List"
+        label.htmlFor = id;
+        formGroup.appendChild(label);
 
-        return div;
+        let input = document.createElement("input") as HTMLInputElement;
+        input.id = id;
+        input.classList.add("form-control");
+        input.type = "text"
+        input.placeholder = "4,8,15,16,23,42"
+        formGroup.appendChild(input);
+
+        this._varListEl = input;
+
+        return formGroup;
     }
 
-    private createQueryButton(): HTMLElement {
+    private createSubmitButton(): HTMLElement {
 
-        let div = document.createElement("div");
-        let button = document.createElement("button");
+        let button = document.createElement("button") as HTMLButtonElement;
+        button.type = "button";
+        button.classList.add("btn");
+        button.classList.add("btn-default");
+        button.innerText = "Submit"
+        button.onclick = this.submitClicked;
 
-        button.innerText = "Query"
-        button.onclick = this.clicked;
-
-        div.appendChild(button);
-
-        return div;
+        return button;
     }
 
-    private clicked = (ev: MouseEvent) => {
-        console.log(this._varsElement.value);
+    private submitClicked = (ev: MouseEvent) => {
+        console.log(this._varListEl.value);    
+        return true;    
     }
 }
